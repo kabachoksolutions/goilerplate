@@ -23,7 +23,7 @@ func NewBcryptPasswordProvider(cost int) PasswordProvider {
 func (p *bcryptPasswordProvider) Generate(password string) (string, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), p.cost)
 	if err != nil {
-		return "", fmt.Errorf("bcryptPasswordProvider: failed to generate hash: %w", err)
+		return "", fmt.Errorf("authbp: bcryptPasswordProvider: failed to generate hash: %w", err)
 	}
 
 	return string(hashedPassword), nil
@@ -32,7 +32,7 @@ func (p *bcryptPasswordProvider) Generate(password string) (string, error) {
 func (p *bcryptPasswordProvider) Compare(password, encodedHash string) (bool, error) {
 	err := bcrypt.CompareHashAndPassword([]byte(encodedHash), []byte(password))
 	if err != nil {
-		return false, fmt.Errorf("bcryptPasswordProvider: failed to compare hash and password: %w", err)
+		return false, fmt.Errorf("authbp: bcryptPasswordProvider: failed to compare hash and password: %w", err)
 	}
 
 	return true, nil

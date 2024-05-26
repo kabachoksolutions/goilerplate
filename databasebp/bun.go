@@ -11,7 +11,7 @@ import (
 )
 
 func NewBunClient(uri, env string) (*bun.DB, error) {
-	db, err := createSQLConn(uri, env, PostgresDriver)
+	db, err := createSQLConn(uri, env, postgresDriver)
 	if err != nil {
 		return nil, err
 	}

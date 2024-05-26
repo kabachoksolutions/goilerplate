@@ -11,11 +11,6 @@ import (
 	"golang.org/x/crypto/argon2"
 )
 
-var (
-	ErrInvalidHash         = errors.New("argonPasswordProvider: the encoded hash is not in the correct format")
-	ErrIncompatibleVersion = errors.New("argonPasswordProvider: incompatible version of argon2")
-)
-
 type argonPasswordProvider struct {
 	memory      uint32
 	iterations  uint32
@@ -86,7 +81,7 @@ func (p *argonPasswordProvider) Compare(password, encodedHash string) (bool, err
 func decodeHash(encodedHash string) (p *argonPasswordProvider, salt, hash []byte, err error) {
 	vals := strings.Split(encodedHash, "$")
 	if len(vals) != 6 {
-		return nil, nil, nil, ErrInvalidHash
+		return nil, nil, nil, errors.New("authbp: argonPasswordProvider: the encoded hash is not in the correct format")
 	}
 
 	var version int
@@ -95,7 +90,7 @@ func decodeHash(encodedHash string) (p *argonPasswordProvider, salt, hash []byte
 		return nil, nil, nil, err
 	}
 	if version != argon2.Version {
-		return nil, nil, nil, ErrIncompatibleVersion
+		return nil, nil, nil, errors.New("authbp: argonPasswordProvider: incompatible version of argon2")
 	}
 
 	p = &argonPasswordProvider{}

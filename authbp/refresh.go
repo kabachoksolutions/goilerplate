@@ -5,13 +5,13 @@ import (
 	"encoding/base64"
 )
 
-type base64RefreshTokenProvider struct{}
+type cryptoRefreshTokenProvider struct{}
 
-func NewBase64RefreshTokenProvider() RefreshTokenProvider {
-	return &base64RefreshTokenProvider{}
+func NewCryptoRefreshTokenProvider() RefreshTokenProvider {
+	return &cryptoRefreshTokenProvider{}
 }
 
-func (p *base64RefreshTokenProvider) Create() (string, error) {
+func (p *cryptoRefreshTokenProvider) Create() (string, error) {
 	tokenBytes := make([]byte, 32)
 	if _, err := rand.Read(tokenBytes); err != nil {
 		return "", err

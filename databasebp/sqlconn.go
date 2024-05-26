@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	PostgresDriver = "postgres"
+	postgresDriver = "postgres"
 )
 
 func createSQLConn(uri, env, driver string) (*sql.DB, error) {
