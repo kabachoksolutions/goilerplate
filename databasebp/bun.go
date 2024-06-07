@@ -24,7 +24,7 @@ func NewBunClient(uri, env string) (*bun.DB, error) {
 	return dbBun, nil
 }
 
-func NewBunMigrationsCommand(migrator *migrate.Migrator) *cli.Command {
+func BunMigrationsCommand(migrator *migrate.Migrator) *cli.Command {
 	return &cli.Command{
 		Name:  "db",
 		Usage: "database migrations",
